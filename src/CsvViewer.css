@@ -1,0 +1,147 @@
+.table-container {
+  width: 100%;
+  max-height: 80vh;
+  overflow: auto; /* Enables both horizontal and vertical scrolling */
+}
+
+.table {
+  display: block;
+  width: max-content;
+  min-width: 100%;
+}
+
+/* Header and rows use flex to align columns */
+.csv-header-row,
+.csv-row {
+  display: flex;
+  width: 100%;
+}
+
+/* Ensure headers match cell width */
+.csv-header-cell,
+.csv-cell {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  white-space: nowrap;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  text-align: center;
+}
+/* Layout */
+.csv-viewer {
+  display: flex;
+  height: 100vh;
+  font-family: sans-serif;
+}
+
+.sidebar {
+  width: 200px;
+  padding: 1rem;
+  border-right: 1px solid #ccc;
+  background-color: #f9f9f9;
+}
+
+.content {
+  flex: 1;
+  padding: 1rem;
+  overflow: auto;
+}
+
+.sidebar-button {
+  display: block;
+  margin-bottom: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  width: 100%;
+  border: 1px solid #ccc;
+  background-color: white;
+  cursor: pointer;
+}
+
+.sidebar-button:hover {
+  background-color: #efefef;
+}
+
+/* Table */
+.table-container {
+  overflow: auto;
+  max-height: 80vh;
+  border: 1px solid #ccc;
+}
+
+.csv-header-row,
+.csv-row {
+  display: flex;
+  width: max-content;
+  min-width: 100%;
+}
+
+.csv-header-cell,
+.csv-cell {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  white-space: nowrap;
+  flex-shrink: 0;
+  text-align: left;
+  min-width: 100px;
+  box-sizing: border-box;
+}
+
+.csv-header-cell {
+  background-color: #eee;
+  font-weight: bold;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.csv-card {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 6px;
+  width: 250px;
+  background-color: #fafafa;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.csv-card-row {
+  margin-bottom: 0.5rem;
+}
+
+.csv-card-label {
+  font-weight: bold;
+  display: inline-block;
+  width: 100px;
+}
+
+.sidebar-checkbox {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.grouped-columns-container {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-top: 1rem;
+}
+
+.group-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 250px;
+}
+
+.group-header {
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  background: #eee;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
