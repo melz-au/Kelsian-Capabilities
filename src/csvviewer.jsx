@@ -36,6 +36,10 @@ const CsvViewer = () => {
   const [filters, setFilters] = useState({});
   const [systemColorMap, setSystemColorMap] = useState({});
 
+  
+
+
+
   // Handle file upload and parsing
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
@@ -107,6 +111,31 @@ const CsvViewer = () => {
       }, {})
     : { All: filteredData };
 
+    useEffect(() => {
+  const rows = document.querySelectorAll('.system-color-row');
+  let maxHeight = 0;
+
+  // Reset heights and find the tallest one
+  rows.forEach((row) => {
+    row.style.height = 'auto';
+    const height = row.offsetHeight;
+    if (height > maxHeight) maxHeight = height;
+  });
+
+  // Apply the tallest height to all rows
+  rows.forEach((row) => {
+    row.style.height = `${maxHeight}px`;
+  });
+
+  // Cleanup on unmount or re-run
+  return () => {
+    rows.forEach((row) => {
+      row.style.height = 'auto';
+    });
+  };
+}, [groupedData, colorBy]); // re-run if grouping or coloring changes
+
+
   // Handle toggling of selected columns
   const handleToggleColumn = (col) => {
     setSelectedColumns((prev) =>
@@ -168,11 +197,20 @@ const CsvViewer = () => {
           })}
         </Box>
 
-        <Box className="grouped-columns-container" sx={{ marginTop: 3 }}>
+        <Box
+  className="grouped-columns-container"
+  sx={{
+    marginTop: 3,
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+    gap: 3,
+  }}
+>
           {Object.entries(groupedData).map(([group, rows]) => {
-            const uniqueColorValues = Array.from(
-              new Set(rows.map((row) => row[colorBy]).filter(Boolean))
-            );
+const uniqueColorValues = Array.from(
+  new Set(rows.map((row) => row[colorBy]).filter(Boolean))
+).sort((a, b) => a.localeCompare(b));
+
 
             return (
               <Box key={group} className="group-column" sx={{ marginBottom: 2 }}>
@@ -182,7 +220,19 @@ const CsvViewer = () => {
 
                 {/* Add color background to system.name */}
                 {colorBy && (
-                  <Box className="system-color-row" sx={{ display: 'flex', gap: 1, marginTop: 1 }}>
+        <Box
+          className="system-color-row"
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '4px', // tighter gap
+            alignContent: 'flex-start', // ← key part
+            alignItems: 'flex-start',
+            height: '100%', // required for matching height
+            overflow: 'hidden', // prevent accidental scrollbars
+          }}
+        >
+
                     {uniqueColorValues.map((val) => (
                       <Chip
                         key={val}
@@ -229,17 +279,21 @@ const CsvViewer = () => {
                         {systemName}
                       </Box>
 
-                      {/* Render other columns */}
-                      {selectedColumns.map((col) => (
-                        <Box key={col} sx={{ marginBottom: 1 }}>
-                          <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
-                            {col}:
-                          </Typography>
-                          <Typography variant="body2" color="textSecondary">
-                            {row[col]}
-                          </Typography>
-                        </Box>
-                      ))}
+                      {selectedColumns
+  .filter((col) => col !== groupBy) // 👈 Hide the groupBy column
+  .map((col) => (
+    <Box key={col} sx={{ marginBottom: 1 }}>
+      <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+        {col}:
+      </Typography>
+      <Typography variant="body2" color="textSecondary">
+        {row[col]}
+      </Typography>
+    </Box>
+))}
+
+
+                   
                     </Box>
                   );
                 })}
