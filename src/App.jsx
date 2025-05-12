@@ -1,27 +1,35 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 import CsvViewer from './CsvViewer';
-import Sidebar from './Sidebar';
-import './App.css';
+import ErrorBoundary from './ErrorBoundary'; // Import ErrorBoundary component
+
+
+// Create a custom theme
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#1976d2',
+    },
+    secondary: {
+      main: '#dc004e',
+    },
+  },
+});
 
 const App = () => {
-  const [columns, setColumns] = useState([]);
-  const [groupBy, setGroupBy] = useState(null);
-  const [showHeaders, setShowHeaders] = useState(true);
-
   return (
-    <div className="app">
-      <Sidebar
-        columns={columns}
-        onGroupBy={setGroupBy}
-        showHeaders={showHeaders}
-        onToggleHeaders={setShowHeaders}
-      />
-      <CsvViewer
-        groupBy={groupBy}
-        onColumnsDetected={setColumns}
-        showHeaders={showHeaders}
-      />
-    </div>
+    <ErrorBoundary>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />  {/* This ensures baseline styles are applied */}
+        <CsvViewer />
+      </ThemeProvider>
+    </ErrorBoundary>
+
   );
 };
+
 export default App;
+
+
+

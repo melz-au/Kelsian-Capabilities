@@ -12,6 +12,7 @@ const Sidebar = ({
 }) => {
   return (
     <div className="sidebar">
+    
       <h3>Select Columns</h3>
       {columns.map((col) => (
         <label key={col} className="sidebar-checkbox">
@@ -19,6 +20,7 @@ const Sidebar = ({
             type="checkbox"
             checked={selectedColumns.includes(col)}
             onChange={() => onToggleColumn(col)}
+
           />
           {col}
         </label>
@@ -46,5 +48,7 @@ const Sidebar = ({
     </div>
   );
 };
+
+
 
 export default Sidebar;

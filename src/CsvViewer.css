@@ -145,3 +145,52 @@
   padding: 0.5rem;
   border-radius: 4px;
 }
+.csv-card {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  position: relative;
+}
+
+.csv-card-row {
+  margin-bottom: 5px;
+}
+
+.csv-card-label {
+  font-weight: bold;
+}
+
+.csv-card-value {
+  margin-left: 5px;
+}
+
+
+
+
+.system-color-row {
+  display: flex;
+  gap: 6px;
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+
+.system-color-circle {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid #999;
+}
+
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.filter-input {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
